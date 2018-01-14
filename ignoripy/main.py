@@ -41,7 +41,7 @@ def format_error(error, language):
     """
     message = "# Language: {0}\n# Error: {1}"
     language = language or "N/A"
-    error = unicode(error) if error else "N/A"
+    error = error if error else "N/A"
 
     message = message.format(language, error)
 
@@ -103,7 +103,7 @@ def main():
 
         if os.path.exists(".gitignore") and os.path.isfile(".gitignore"):
             overwrite_message = "A .gitignore already exists, overwrite? (y/n - default: y)- "
-            overwrite = unicode(input(overwrite_message)) or "y"
+            overwrite = input(overwrite_message) or "y"
 
             if overwrite not in ["y", "Y"]:
                 overwrite = 0

@@ -15,7 +15,7 @@ setup(
     ignoripy=ignoripy.main:main
     """,
     python_requires='>=2.7',
-    install_requires=["requests==2.18.4",],
+    install_requires=["requests==2.18.4","future==0.16.0"],
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',

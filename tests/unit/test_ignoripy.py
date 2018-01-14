@@ -12,7 +12,7 @@ class TestGitIgnore(unittest.TestCase):
     gitignore = GitIgnore(self.endpoint, "python")
     response = gitignore.get()
 
-    self.assertNotIn("#!! ERROR", response)
+    self.assertNotIn("#!! ERROR", response.decode("utf8"))
 
   def test_get_with_single_invalid_language(self):
     gitignore = GitIgnore(self.endpoint, "pythons")
@@ -20,13 +20,13 @@ class TestGitIgnore(unittest.TestCase):
     with self.assertRaises(GitIgnoreError) as context_mgr:
       gitignore.get()
 
-    self.assertEqual("`pythons` doesn't have a gitignore", context_mgr.exception.message)
+    self.assertEqual("`pythons` doesn't have a gitignore", str(context_mgr.exception))
 
   def test_get_with_multiple_valid_language(self):
     gitignore = GitIgnore(self.endpoint, "python,node,java")
     response = gitignore.get()
 
-    self.assertNotIn("#!! ERROR", response)
+    self.assertNotIn("#!! ERROR", response.decode("utf8"))
 
   def test_get_with_multiple_invalid_language(self):
     gitignore = GitIgnore(self.endpoint, "java,pythons")
@@ -34,7 +34,7 @@ class TestGitIgnore(unittest.TestCase):
     with self.assertRaises(GitIgnoreError) as context_mgr:
       gitignore.get()
 
-    self.assertEqual("`pythons` doesn't have a gitignore", context_mgr.exception.message)
+    self.assertEqual("`pythons` doesn't have a gitignore", str(context_mgr.exception))
 
   def test_get_with_invalid_endpoint(self):
     gitignore = GitIgnore(self.endpoint + "/apis", "pythons")
@@ -42,7 +42,7 @@ class TestGitIgnore(unittest.TestCase):
     with self.assertRaises(GitIgnoreError) as context_mgr:
       gitignore.get()
 
-    self.assertEqual("Error occurred getting .gitignore", context_mgr.exception.message)
+    self.assertEqual("Error occurred getting .gitignore", str(context_mgr.exception))
 
 class Test_format_error(unittest.TestCase):
   def test_with_valid_error(self):

@@ -1,6 +1,4 @@
-from __future__ import print_function
 from __future__ import unicode_literals
-from __future__ import absolute_import
 import re
 import requests
 from future.utils import raise_from
@@ -47,7 +45,7 @@ class GitIgnore(object):
             if response.status_code != 200:
                 raise requests.RequestException(response.content)
             else:
-                match = self.error_pattern.search(response.content)
+                match = self.error_pattern.search(response.content.decode("utf8"))
 
                 if match:
                     lang = match.groupdict().get("lang")
